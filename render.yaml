@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: maison-aurelle-v2-public-preview
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20

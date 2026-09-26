@@ -1,0 +1,197 @@
+{% comment %}
+  Homepage Zone 2: Primary Curated Categories
+{% endcomment %}
+
+<section class="section-padding" id="categories" style="background-color: var(--color-canvas);">
+  <div class="container-boxed">
+    <!-- Section Header -->
+    <div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 2.5rem; gap: 1rem;">
+      <div style="display: flex; flex-direction: column; md:flex-row; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <p class="font-label-caps" style="color: var(--color-secondary); letter-spacing: 0.2em; margin-bottom: 0.25rem;">
+            {{ section.settings.eyebrow | default: 'Architectural Foundations' }}
+          </p>
+          <h2 class="font-headline-lg" style="margin: 0; color: var(--color-primary);">
+            {{ section.settings.title | default: 'Curated Categories' }}
+          </h2>
+        </div>
+        <p class="font-body-sm" style="color: var(--color-text-variant); max-width: 380px; margin-top: 0.75rem;">
+          {{ section.settings.description | default: 'Three disciplined paths crafted to bring balance, sculpted light, and Haussmannian proportions to contemporary interiors.' }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Category Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gutter-desktop);">
+      {%- for block in section.blocks -%}
+        {%- assign collection = collections[block.settings.collection] -%}
+        <article class="category-card group" {{ block.shopify_attributes }}>
+          <a href="{{ collection.url | default: block.settings.custom_link | default: '#' }}" class="category-card-media block">
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 800 }}"
+                alt="{{ block.settings.title | default: collection.title | escape }}"
+                loading="lazy"
+                width="800"
+                height="1000"
+              >
+            {%- elsif collection.image != blank -%}
+              <img
+                src="{{ collection.image | image_url: width: 800 }}"
+                alt="{{ collection.title | escape }}"
+                loading="lazy"
+                width="800"
+                height="1000"
+              >
+            {%- elsif block.settings.fallback_image_url != blank -%}
+              <img
+                src="{{ block.settings.fallback_image_url }}"
+                alt="{{ block.settings.title | escape }}"
+                loading="lazy"
+                width="800"
+                height="1000"
+              >
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-surface-container' }}
+            {%- endif -%}
+          </a>
+
+          <div class="category-card-content">
+            <div>
+              <h3 class="font-headline-sm" style="margin: 0 0 0.5rem 0; color: var(--color-primary);">
+                <a href="{{ collection.url | default: block.settings.custom_link | default: '#' }}">
+                  {{ block.settings.title | default: collection.title | default: 'Curated Collection' }}
+                </a>
+              </h3>
+              <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0 0 0.5rem 0;">
+                {{ block.settings.subtitle | default: collection.description | truncate: 90 }}
+              </p>
+              {%- if block.settings.price_note != blank -%}
+                <p class="font-label-caps" style="color: var(--color-secondary); margin: 0;">
+                  {{ block.settings.price_note }}
+                </p>
+              {%- endif -%}
+            </div>
+
+            <div style="padding-top: 1.5rem;">
+              <a
+                href="{{ collection.url | default: block.settings.custom_link | default: '#' }}"
+                class="font-label-ui"
+                style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.08em;"
+              >
+                <span>Browse Category</span>
+                {% render 'icon', name: 'arrow-forward', class: 'w-4 h-4' %}
+              </a>
+            </div>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Curated Categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Architectural Foundations"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Curated Categories"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section Description",
+      "default": "Three disciplined paths crafted to bring balance, sculpted light, and Haussmannian proportions to contemporary interiors."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_card",
+      "name": "Category Card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Shopify Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Card Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback_image_url",
+          "label": "Default Preview Image URL (Used if no image uploaded)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title Override",
+          "default": "Side & Accent Tables"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Card Subtitle",
+          "default": "Round fluted marble & brass pedestal accents."
+        },
+        {
+          "type": "text",
+          "id": "price_note",
+          "label": "Starting Price Note",
+          "default": "From $120"
+        },
+        {
+          "type": "url",
+          "id": "custom_link",
+          "label": "Custom Link (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Curated Categories",
+      "blocks": [
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Side & Accent Tables",
+            "subtitle": "Round fluted marble & brass pedestal accents.",
+            "price_note": "From $120",
+            "fallback_image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDi7rxp4F1fOFSNIPrk-yMQPatt8PuNi4Dzr2PQWNgeBIU2qUxkf4YutNQ2hEwz7u-Zvqzzd8E9UxldwHW88ho5PpkN9keEKO972RsoaK9Qxei7cwLQiG-zF2zIfCjpsSWLC53E7BUHWRbUskU7VW5B2Soqft6shhSfDfcG6P3EAoZYcowr6JOJbLFNMTrcmHfsRPKZtPLKyvwaR8WRFpZoAJgP4wlqH4fxEvICtP71_GN_afRqQUC5mg"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Decorative Objects",
+            "subtitle": "Hand-sculpted vessels, cast bronze accents & forms.",
+            "price_note": "From $38",
+            "fallback_image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuD9ttj71kI4_dVihMFhbMsvfFpLeKm9-zpQwl7nS4rRvPEQJPb3BZ9hhY7UuxtRLV0TnCLWRCX30sRfNdyocaV-4r9FOOF2qwYG3kGRotGN8CDnUguZA9n9FR2gMVDkK_WDd6nALCiamNwOkLxTzihaGOWlvx1We_yGlxsfPC7T0JA0Y0wJV54BgSMZyxKB1ALjGcDv3dx3GVEPjGGQaLuhhqwvZhwa5j8OAP7Vq0GE_kQUFXkoQYK9_g"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Architectural Details",
+            "subtitle": "Lightweight French Rococo & classic wall mouldings.",
+            "price_note": "From $32",
+            "fallback_image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDRtuCQbrjrvLOpQLoZ7SOw-VYakw5XsjVKERZMzErdc5nAA-uVdY-ohPnX5e4yrIh9hPjvNUfeUbljNLGds3MjJKe_QF3kr2gjOliqkeevHB1hBmUv9GG1_3S2PogVX0dKX76z4-8nwQNgyX3nDpi9ZREuw8DvYe2R-L0nER1qvwrjYYpDUuQw2HxxZI5_-ci-RTwEf901KD66V8IfsKNzg8wwSmmpRjbDizx51McgNjgwmvhKtRI2Rw"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

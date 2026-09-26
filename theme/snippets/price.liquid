@@ -1,0 +1,25 @@
+{% comment %}
+  Renders product price
+  Usage: {% render 'price', product: product, price_class: 'custom-class' %}
+{% endcomment %}
+
+{%- liquid
+  assign target = product.selected_or_first_available_variant
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 0
+-%}
+
+<div class="price-container {{ price_class }}">
+  {%- if compare_at_price > price -%}
+    <span class="price-item price-compare text-on-surface-variant line-through text-body-sm mr-2">
+      {{ compare_at_price | money }}
+    </span>
+    <span class="price-item price-current font-medium text-primary">
+      {{ price | money }}
+    </span>
+  {%- else -%}
+    <span class="price-item price-current font-medium text-primary">
+      {{ price | money }}
+    </span>
+  {%- endif -%}
+</div>

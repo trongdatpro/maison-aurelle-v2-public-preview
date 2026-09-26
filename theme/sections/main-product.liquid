@@ -1,0 +1,289 @@
+{% comment %}
+  Maison Aurelle V2 — Native Main Product Section (58/42 Media Gallery & Sticky Buy Box)
+{% endcomment %}
+
+<section class="main-product-section" style="background-color: var(--color-canvas); padding: 1.5rem 0 3rem 0;">
+  <!-- Breadcrumbs & Reference -->
+  <div style="background-color: var(--color-surface-container-low); border-bottom: 1px solid var(--color-border); margin-bottom: 2rem;">
+    <div class="container-boxed" style="padding-top: 0.75rem; padding-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
+      <nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 0.5rem;" class="font-label-ui">
+        <a href="{{ routes.root_url }}" style="color: var(--color-text-variant);">Home</a>
+        <span style="color: var(--color-border-variant);">/</span>
+        {%- if collection -%}
+          <a href="{{ collection.url }}" style="color: var(--color-text-variant);">{{ collection.title }}</a>
+          <span style="color: var(--color-border-variant);">/</span>
+        {%- elsif product.collections.first -%}
+          <a href="{{ product.collections.first.url }}" style="color: var(--color-text-variant);">{{ product.collections.first.title }}</a>
+          <span style="color: var(--color-border-variant);">/</span>
+        {%- endif -%}
+        <span aria-current="page" style="color: var(--color-text-primary); font-weight: 500;">{{ product.title | escape }}</span>
+      </nav>
+
+      {%- if product.selected_or_first_available_variant.sku != blank -%}
+        <div class="font-body-sm" style="display: none; md:flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted);">
+          <span>Reference: {{ product.selected_or_first_available_variant.sku }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="container-boxed">
+    <div class="pdp-grid">
+      <!-- ==========================================
+           LEFT COLUMN: 58% GALLERY & DETAIL MODULES
+           ========================================== -->
+      <div class="pdp-gallery-col" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        {%- assign current_variant = product.selected_or_first_available_variant -%}
+        {%- assign featured_media = current_variant.featured_media | default: product.featured_media -%}
+
+        <!-- Main Gallery Image Frame -->
+        <div class="pdp-gallery-main">
+          {%- if featured_media != blank -%}
+            <img
+              src="{{ featured_media | image_url: width: 1400 }}"
+              alt="{{ featured_media.alt | default: product.title | escape }}"
+              id="mainGalleryImage"
+              data-main-gallery-image
+              width="1400"
+              height="1050"
+            >
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-surface-container' }}
+          {%- endif -%}
+
+          {%- if product.metafields.custom.curatorial_label != blank -%}
+            <div style="position: absolute; top: 1rem; left: 1rem; background-color: rgba(251, 249, 245, 0.92); backdrop-filter: blur(4px); padding: 0.25rem 0.75rem; border-radius: var(--radius-base); border: 1px solid var(--color-border);">
+              <span class="font-label-caps" style="color: var(--color-text-primary);">
+                {{ product.metafields.custom.curatorial_label }}
+              </span>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <!-- Thumbnails Selector Bar -->
+        {%- if product.media.size > 1 -%}
+          <div class="pdp-gallery-thumbs" role="tablist">
+            {%- for media in product.media -%}
+              <button
+                type="button"
+                class="pdp-thumb-btn {% if forloop.first %}is-active{% endif %}"
+                data-gallery-thumb
+                data-full-src="{{ media | image_url: width: 1400 }}"
+                data-alt="{{ media.alt | default: product.title | escape }}"
+                aria-label="View media {{ forloop.index }}"
+              >
+                <img
+                  src="{{ media | image_url: width: 200, height: 200, crop: 'center' }}"
+                  alt="{{ media.alt | default: product.title | escape }}"
+                  width="100"
+                  height="100"
+                >
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <!-- 2-Column Architectural Context & Scale Cards (When populated in Metafields) -->
+        {%- if product.metafields.custom.dimensions_profile != blank or product.description != blank -%}
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; padding-top: 0.5rem;">
+            <!-- Spatial Proportions Card -->
+            <div style="background-color: var(--color-surface-container-low); border: 1px solid var(--color-border); border-radius: var(--radius-base); padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <p class="font-label-caps" style="color: var(--color-secondary); margin-bottom: 0.25rem;">Spatial Proportions</p>
+                <h3 class="font-headline-sm" style="margin: 0 0 0.5rem 0; font-size: 1.125rem;">Proportioned for Living Spaces</h3>
+                <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0; line-height: 1.6;">
+                  {{ product.description | strip_html | truncate: 180 }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Architectural Scale Card -->
+            <div style="background-color: var(--color-surface-container-low); border: 1px solid var(--color-border); border-radius: var(--radius-base); padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <span class="font-label-caps" style="color: var(--color-secondary);">Architectural Scale</span>
+                  <span class="font-label-caps" style="color: var(--color-text-muted);">Metric / Imperial</span>
+                </div>
+                <div class="font-body-sm" style="color: var(--color-text-variant); line-height: 1.6;">
+                  {{ product.metafields.custom.dimensions_profile | default: 'Dimensions and detailed elevation profile available in the specifications below.' }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- ==========================================
+           RIGHT COLUMN: 42% STICKY BUY BOX
+           ========================================== -->
+      <div class="pdp-buybox-sticky">
+        <div class="pdp-buybox-panel">
+          <!-- Header & Pricing -->
+          <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+            {%- if product.metafields.custom.curatorial_label != blank -%}
+              <span class="font-label-caps" style="color: var(--color-secondary); font-weight: 600;">
+                {{ product.metafields.custom.curatorial_label }}
+              </span>
+            {%- elsif product.type != blank -%}
+              <span class="font-label-caps" style="color: var(--color-secondary); font-weight: 600;">
+                {{ product.type | escape }}
+              </span>
+            {%- endif -%}
+
+            <h1 class="font-headline-lg" style="margin: 0; color: var(--color-primary); font-size: clamp(1.5rem, 2.5vw, 2.25rem);">
+              {{ product.title | escape }}
+            </h1>
+
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.75rem; padding-top: 0.5rem;">
+              <span class="font-headline-md" style="color: var(--color-primary); font-weight: 500;" data-price-display>
+                {{ current_variant.price | money }}
+              </span>
+              <span class="font-body-sm" style="color: var(--color-text-muted);">
+                Taxes &amp; shipping calculated at checkout.
+              </span>
+            </div>
+          </div>
+
+          <!-- Product Form -->
+          {%- form 'product', product, id: 'product-form', class: 'product-form' -%}
+            <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+            <!-- Material & Finish Variant Selector -->
+            {%- unless product.has_only_default_variant -%}
+              <div style="margin-bottom: 1.25rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.625rem;">
+                  <span class="font-label-ui" style="text-transform: uppercase; color: var(--color-text-primary);">
+                    Select Finish / Material:
+                  </span>
+                  <span class="font-label-caps" style="color: var(--color-text-muted);">
+                    {{ current_variant.title }}
+                  </span>
+                </div>
+
+                {% render 'variant-swatch', product: product, selected_variant: current_variant %}
+              </div>
+            {%- endunless -%}
+
+            <!-- Configuration Notation (if applicable) -->
+            {%- if product.metafields.custom.configuration_note != blank -%}
+              <div style="margin-bottom: 1.25rem; background-color: var(--color-surface); padding: 0.75rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-base);">
+                <span class="font-label-caps" style="color: var(--color-secondary); display: block; margin-bottom: 0.25rem;">Configuration</span>
+                <span class="font-body-md" style="color: var(--color-text-primary); font-weight: 500;">
+                  {{ product.metafields.custom.configuration_note }}
+                </span>
+              </div>
+            {%- endif -%}
+
+            <!-- Quantity & Add to Cart Action -->
+            <div class="pdp-action-row">
+              <!-- Quantity Stepper -->
+              <div class="qty-stepper" data-qty-stepper>
+                <button type="button" class="qty-btn" data-qty-minus aria-label="Decrease quantity">
+                  {% render 'icon', name: 'minus', class: 'w-3 h-3' %}
+                </button>
+                <input
+                  type="number"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  class="qty-input"
+                  data-qty-input
+                  aria-label="Product quantity"
+                >
+                <button type="button" class="qty-btn" data-qty-plus aria-label="Increase quantity">
+                  {% render 'icon', name: 'plus', class: 'w-3 h-3' %}
+                </button>
+              </div>
+
+              <!-- Main Add to Cart Button -->
+              <button
+                type="submit"
+                name="add"
+                class="btn-primary"
+                style="flex: 1 0 auto; height: 48px; padding: 0 1rem; font-size: 0.75rem;"
+                {% unless current_variant.available %}disabled{% endunless %}
+              >
+                {%- if current_variant.available -%}
+                  <span>{{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }} &mdash; <span data-price-display>{{ current_variant.price | money }}</span></span>
+                  {% render 'icon', name: 'arrow-forward', class: 'w-4 h-4' %}
+                {%- else -%}
+                  <span>{{ 'products.product.sold_out' | t | default: 'Archived / Sold Out' }}</span>
+                {%- endif -%}
+              </button>
+            </div>
+
+            {%- if section.settings.show_dynamic_checkout -%}
+              <div style="margin-top: 0.75rem;">
+                {{ form | payment_button }}
+              </div>
+            {%- endif -%}
+          {%- endform -%}
+
+          <!-- Logistics & Delivery Block (Clean & verified information, no unverified promises) -->
+          <div style="background-color: var(--color-surface); padding: 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-base); display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span class="font-label-caps" style="color: var(--color-text-primary); font-weight: 600;">Delivery &amp; Logistics</span>
+              <span class="font-label-caps" style="color: var(--color-secondary);">US • UK • EU</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;" class="font-body-sm">
+              <div style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--color-text-variant);">
+                <span class="text-secondary shrink-0" style="margin-top: 2px;">
+                  {% render 'icon', name: 'shipping', class: 'w-4 h-4' %}
+                </span>
+                <span>Regional fulfillment across US, UK, and EU. Tracking supplied upon dispatch.</span>
+              </div>
+              <div style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--color-text-variant);">
+                <span class="text-secondary shrink-0" style="margin-top: 2px;">
+                  {% render 'icon', name: 'shield', class: 'w-4 h-4' %}
+                </span>
+                <span>Rates and applicable regional taxes or duties are calculated accurately at checkout.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Confidence Badges -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; text-align: center; padding-top: 0.5rem;">
+            <div style="padding: 0.5rem;">
+              <span class="text-secondary" style="display: inline-block;">
+                {% render 'icon', name: 'architecture', class: 'w-5 h-5' %}
+              </span>
+              <span class="font-label-caps" style="display: block; margin-top: 0.25rem; font-size: 10px; color: var(--color-text-primary);">Materials</span>
+              <span class="font-body-sm" style="display: block; font-size: 11px; color: var(--color-text-muted);">Curated Finish</span>
+            </div>
+
+            <div style="padding: 0.5rem;">
+              <span class="text-secondary" style="display: inline-block;">
+                {% render 'icon', name: 'handyman', class: 'w-5 h-5' %}
+              </span>
+              <span class="font-label-caps" style="display: block; margin-top: 0.25rem; font-size: 10px; color: var(--color-text-primary);">Assembly</span>
+              <span class="font-body-sm" style="display: block; font-size: 11px; color: var(--color-text-muted);">Guided Setup</span>
+            </div>
+
+            <div style="padding: 0.5rem;">
+              <span class="text-secondary" style="display: inline-block;">
+                {% render 'icon', name: 'shipping', class: 'w-5 h-5' %}
+              </span>
+              <span class="font-label-caps" style="display: block; margin-top: 0.25rem; font-size: 10px; color: var(--color-text-primary);">Packaging</span>
+              <span class="font-body-sm" style="display: block; font-size: 11px; color: var(--color-text-muted);">Transit Protective</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "Show native dynamic checkout button",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

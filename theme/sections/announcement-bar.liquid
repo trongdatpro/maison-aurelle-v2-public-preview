@@ -1,0 +1,29 @@
+{%- if section.settings.show_announcement -%}
+  <aside class="announcement-bar" role="region" aria-label="Announcement">
+    <div class="container-boxed">
+      <p class="font-label-caps">
+        {{ section.settings.text | default: 'Curated home furniture & architectural decor • US, UK & EU Markets' }}
+      </p>
+    </div>
+  </aside>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement text",
+      "default": "Curated home furniture & architectural decor • US, UK & EU Markets"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,55 @@
+{% comment %}
+  Maison Aurelle V2 — Search Section
+{% endcomment %}
+
+<section class="section-padding" style="background-color: var(--color-canvas); min-height: 70vh;">
+  <div class="container-boxed">
+    <div style="border-bottom: 1px solid var(--color-border); padding-bottom: 2rem; margin-bottom: 3rem; text-align: center;">
+      <h1 class="font-headline-lg" style="margin: 0 0 1.5rem 0; color: var(--color-primary);">
+        Search Curation
+      </h1>
+
+      <form action="{{ routes.search_url }}" method="get" style="max-width: 480px; margin: 0 auto; display: flex; align-items: center; border-bottom: 1px solid var(--color-primary); padding-bottom: 0.5rem;">
+        <input
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="Search collections, pieces, materials..."
+          class="font-body-md"
+          style="width: 100%; background: transparent; border: none; outline: none; color: var(--color-text-primary);"
+        >
+        <button type="submit" aria-label="Search" style="color: var(--color-primary); padding: 0.25rem;">
+          {% render 'icon', name: 'search', class: 'w-5 h-5' %}
+        </button>
+      </form>
+    </div>
+
+    {%- if search.performed -%}
+      {%- if search.results_count > 0 -%}
+        <p class="font-body-sm" style="color: var(--color-text-muted); margin-bottom: 2rem;">
+          {{ search.results_count }} results found for &ldquo;{{ search.terms }}&rdquo;
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--gutter-desktop);">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product_card_product: item %}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div style="text-align: center; padding: 3rem 0;">
+          <p class="font-headline-sm" style="color: var(--color-primary); margin-bottom: 0.5rem;">No results found</p>
+          <p class="font-body-sm" style="color: var(--color-text-variant);">Please check the spelling or search using another keyword.</p>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

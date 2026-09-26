@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_dynamic_checkout": false
+      }
+    },
+    "specifications": {
+      "type": "product-specifications",
+      "settings": {}
+    },
+    "pairings": {
+      "type": "product-pairings",
+      "settings": {
+        "eyebrow": "Harmonious Assemblage",
+        "heading": "Perfect Companion Accents",
+        "subtext": "Artisanal objects proportioned precisely to rest upon or frame your space."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "specifications",
+    "pairings"
+  ]
+}

@@ -1,0 +1,114 @@
+<header class="site-header" role="banner">
+  <div class="container-boxed">
+    <div class="header-container">
+      <!-- Brand Logo / Wordmark -->
+      <div class="header-logo">
+        <a href="{{ routes.root_url }}">
+          {%- if settings.logo != blank -%}
+            <img
+              src="{{ settings.logo | image_url: width: settings.logo_width }}"
+              alt="{{ settings.logo.alt | default: shop.name | escape }}"
+              width="{{ settings.logo_width }}"
+              height="auto"
+              style="max-width: {{ settings.logo_width }}px;"
+            >
+          {%- else -%}
+            <span class="brand-name">{{ shop.name | default: 'Maison Aurelle' }}</span>
+          {%- endif -%}
+        </a>
+      </div>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="header-nav" role="navigation" aria-label="Main Navigation">
+        {%- for link in linklists[section.settings.menu].links -%}
+          <a
+            href="{{ link.url }}"
+            class="nav-link {% if link.current %}active{% endif %}"
+            {% if link.current %}aria-current="page"{% endif %}
+          >
+            {{ link.title | escape }}
+          </a>
+        {%- else -%}
+          <!-- Default locked navigation paths if menu not yet set in Admin -->
+          <a href="{{ routes.all_products_collection_url }}" class="nav-link active" aria-current="page">Shop</a>
+          <a href="{{ routes.collections_url }}/side-and-accent-tables" class="nav-link">Tables</a>
+          <a href="{{ routes.collections_url }}/decorative-objects" class="nav-link">Decor</a>
+          <a href="{{ routes.collections_url }}/architectural-details" class="nav-link">Architectural Details</a>
+        {%- endfor -%}
+      </nav>
+
+      <!-- Utility Actions -->
+      <div class="header-actions">
+        <a href="{{ routes.search_url }}" class="header-action-btn" aria-label="Search">
+          {% render 'icon', name: 'search', class: 'w-5 h-5' %}
+        </a>
+
+        <a href="{{ routes.cart_url }}" class="header-action-btn font-label-ui" aria-label="Cart">
+          <span>Cart ({{ cart.item_count }})</span>
+        </a>
+
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{{ routes.account_url }}" class="header-action-btn" aria-label="Account">
+            {% render 'icon', name: 'account', class: 'w-5 h-5' %}
+          </a>
+        {%- endif -%}
+
+        <!-- Mobile Menu Trigger -->
+        <button
+          type="button"
+          class="mobile-menu-toggle header-action-btn"
+          data-mobile-menu-toggle
+          aria-label="Open Navigation Menu"
+        >
+          {% render 'icon', name: 'menu', class: 'w-6 h-6' %}
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-drawer" data-mobile-nav-drawer aria-hidden="true">
+  <div class="mobile-nav-panel">
+    <div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+        <span class="font-headline-sm" style="font-size: 1.25rem;">{{ shop.name | default: 'Maison Aurelle' }}</span>
+        <button type="button" data-mobile-nav-close aria-label="Close menu">
+          {% render 'icon', name: 'close', class: 'w-5 h-5' %}
+        </button>
+      </div>
+
+      <nav style="display: flex; flex-direction: column; gap: 1.25rem;">
+        {%- for link in linklists[section.settings.menu].links -%}
+          <a href="{{ link.url }}" class="font-label-ui" style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em;">
+            {{ link.title | escape }}
+          </a>
+        {%- else -%}
+          <a href="{{ routes.all_products_collection_url }}" class="font-label-ui" style="font-size: 1rem; text-transform: uppercase;">Shop</a>
+          <a href="{{ routes.collections_url }}/side-and-accent-tables" class="font-label-ui" style="font-size: 1rem; text-transform: uppercase;">Tables</a>
+          <a href="{{ routes.collections_url }}/decorative-objects" class="font-label-ui" style="font-size: 1rem; text-transform: uppercase;">Decor</a>
+          <a href="{{ routes.collections_url }}/architectural-details" class="font-label-ui" style="font-size: 1rem; text-transform: uppercase;">Architectural Details</a>
+        {%- endfor -%}
+      </nav>
+    </div>
+
+    <div style="padding-top: 2rem; border-top: 1px solid var(--color-border);">
+      <p class="font-label-caps" style="color: var(--color-secondary); margin-bottom: 0.5rem;">Target Markets</p>
+      <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0;">United States • United Kingdom • European Union</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

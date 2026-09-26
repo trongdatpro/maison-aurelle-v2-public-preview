@@ -1,0 +1,58 @@
+{% comment %}
+  Renders variant selection pills matching locked Stitch V2 aesthetics
+  Usage: {% render 'variant-swatch', product: product, selected_variant: current_variant %}
+{% endcomment %}
+
+<div class="variant-pill-group" role="radiogroup" aria-label="Finish and Material Options">
+  {%- for variant in product.variants -%}
+    {%- assign is_selected = false -%}
+    {%- if variant.id == selected_variant.id -%}
+      {%- assign is_selected = true -%}
+    {%- endif -%}
+
+    <label class="variant-pill-option {% if is_selected %}is-selected{% endif %}">
+      <input
+        type="radio"
+        name="id_selector"
+        value="{{ variant.id }}"
+        data-variant-radio
+        data-variant-price="{{ variant.price | money }}"
+        data-variant-sku="{{ variant.sku }}"
+        {% if is_selected %}checked{% endif %}
+        class="sr-only"
+        style="position: absolute; opacity: 0; pointer-events: none;"
+      >
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        {%- if variant.featured_image -%}
+          <img
+            src="{{ variant.featured_image | image_url: width: 64, height: 64, crop: 'center' }}"
+            alt="{{ variant.title | escape }}"
+            class="variant-color-dot"
+            width="24"
+            height="24"
+          >
+        {%- else -%}
+          <span
+            class="variant-color-dot"
+            style="background-color: var(--color-surface-container-high);"
+          ></span>
+        {%- endif -%}
+
+        <div>
+          <span class="font-label-ui" style="display: block; color: var(--color-text-primary);">
+            {{ variant.title | escape }}
+          </span>
+          {%- if variant.sku != blank -%}
+            <span class="font-body-sm" style="display: block; font-size: 11px; color: var(--color-text-muted);">
+              Ref: {{ variant.sku | escape }}
+            </span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <span class="variant-check text-primary" style="display: {% if is_selected %}inline-flex{% else %}none{% endif %};">
+        {% render 'icon', name: 'check', class: 'w-4 h-4' %}
+      </span>
+    </label>
+  {%- endfor -%}
+</div>

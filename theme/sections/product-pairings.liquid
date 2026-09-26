@@ -1,0 +1,130 @@
+{% comment %}
+  Maison Aurelle V2 — Curated Companion Accents (Strictly 1-2 items, no carousel noise)
+  Driven by product.metafields.custom.complementary_products or section collection
+{% endcomment %}
+
+{%- liquid
+  assign pairing_products = product.metafields.custom.complementary_products.value
+  if pairing_products == blank and section.settings.fallback_collection != blank
+    assign pairing_products = collections[section.settings.fallback_collection].products
+  endif
+-%}
+
+{%- if pairing_products != blank and pairing_products.size > 0 -%}
+  <section class="section-padding" style="background-color: var(--color-surface-container-low); border-top: 1px solid var(--color-border);">
+    <div class="container-boxed">
+      <!-- Section Header -->
+      <div style="margin-bottom: 2.5rem;">
+        <span class="font-label-caps" style="color: var(--color-secondary); letter-spacing: 0.2em; display: block; margin-bottom: 0.25rem;">
+          {{ section.settings.eyebrow | default: 'Harmonious Assemblage' }}
+        </span>
+        <h2 class="font-headline-lg" style="margin: 0 0 0.5rem 0; color: var(--color-primary);">
+          {{ section.settings.heading | default: 'Perfect Companion Accents' }}
+        </h2>
+        <p class="font-body-md" style="color: var(--color-text-variant); margin: 0; max-width: 600px;">
+          {{ section.settings.subtext | default: 'Artisanal objects proportioned precisely to rest upon or frame your space.' }}
+        </p>
+      </div>
+
+      <!-- Pairing Grid (Strictly max 2 items) -->
+      <div class="pairings-grid">
+        {%- for pair_item in pairing_products limit: 2 -%}
+          <div class="pairing-card">
+            <a href="{{ pair_item.url }}" class="pairing-card-media block">
+              {%- if pair_item.featured_media -%}
+                <img
+                  src="{{ pair_item.featured_media | image_url: width: 600 }}"
+                  alt="{{ pair_item.featured_media.alt | default: pair_item.title | escape }}"
+                  loading="lazy"
+                  width="300"
+                  height="300"
+                >
+              {%- else -%}
+                {{ 'product-2' | placeholder_svg_tag: 'w-full h-full object-cover bg-surface-container' }}
+              {%- endif -%}
+            </a>
+
+            <div style="flex: 1 0 auto; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.25rem;">
+                  <span class="font-label-caps" style="color: var(--color-secondary);">
+                    {{ pair_item.type | default: 'Curated Accent' }}
+                  </span>
+                  <span class="font-headline-sm" style="font-size: 1.125rem; color: var(--color-primary);">
+                    {{ pair_item.price | money }}
+                  </span>
+                </div>
+
+                <h3 class="font-headline-sm" style="margin: 0 0 0.35rem 0; font-size: 1.125rem;">
+                  <a href="{{ pair_item.url }}" style="color: var(--color-primary);">
+                    {{ pair_item.title | escape }}
+                  </a>
+                </h3>
+
+                <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0; line-height: 1.5;">
+                  {{ pair_item.description | strip_html | truncate: 90 }}
+                </p>
+              </div>
+
+              <div>
+                {%- form 'product', pair_item -%}
+                  <input type="hidden" name="id" value="{{ pair_item.selected_or_first_available_variant.id }}">
+                  <button
+                    type="submit"
+                    name="add"
+                    class="btn-secondary"
+                    style="height: 40px; padding: 0 1rem; font-size: 0.75rem;"
+                    {% unless pair_item.available %}disabled{% endunless %}
+                  >
+                    {%- if pair_item.available -%}
+                      {% render 'icon', name: 'plus', class: 'w-3 h-3 mr-1' %}
+                      <span>Add to Cart &mdash; {{ pair_item.price | money }}</span>
+                    {%- else -%}
+                      <span>Sold Out</span>
+                    {%- endif -%}
+                  </button>
+                {%- endform -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Curated Pairings",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Harmonious Assemblage"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Perfect Companion Accents"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Artisanal objects proportioned precisely to rest upon or frame your space."
+    },
+    {
+      "type": "collection",
+      "id": "fallback_collection",
+      "label": "Fallback Collection (if product has no specific pairings assigned)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Curated Pairings"
+    }
+  ]
+}
+{% endschema %}

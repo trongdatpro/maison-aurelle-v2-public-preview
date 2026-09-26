@@ -1,0 +1,139 @@
+{% comment %}
+  Homepage Zone 5: Trust & Purchase Confidence (Honest Standards)
+{% endcomment %}
+
+<section class="section-padding" style="background-color: var(--color-surface-container-high); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <div class="container-boxed">
+    <!-- Header -->
+    <div style="text-align: center; max-width: 620px; margin: 0 auto 3rem auto;">
+      <p class="font-label-caps" style="color: var(--color-secondary); letter-spacing: 0.2em; margin-bottom: 0.25rem;">
+        {{ section.settings.eyebrow | default: 'Honest Standards' }}
+      </p>
+      <h2 class="font-headline-md" style="margin: 0 0 0.5rem 0; color: var(--color-primary);">
+        {{ section.settings.title | default: 'Built with Structural Authenticity' }}
+      </h2>
+      <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0;">
+        {{ section.settings.description | default: 'Curated finishes, clear specifications, and transparent regional fulfillment details.' }}
+      </p>
+    </div>
+
+    <!-- 3 Trust Cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gutter-desktop);">
+      {%- for block in section.blocks -%}
+        <div class="trust-card" style="background-color: var(--color-surface-container-lowest); padding: var(--space-lg); border: 1px solid var(--color-border); border-radius: var(--radius-base); display: flex; flex-direction: column; align-items: flex-start;" {{ block.shopify_attributes }}>
+          <div style="width: 3rem; height: 3rem; border-radius: 50%; background-color: var(--color-surface-container); display: flex; align-items: center; justify-content: center; color: var(--color-primary); margin-bottom: 1.25rem;">
+            {% render 'icon', name: block.settings.icon, class: 'w-6 h-6' %}
+          </div>
+          <h3 class="font-headline-sm" style="margin: 0 0 0.5rem 0; font-size: 1.25rem; color: var(--color-primary);">
+            {{ block.settings.title }}
+          </h3>
+          <p class="font-body-md" style="color: var(--color-text-variant); margin: 0; line-height: 1.6;">
+            {{ block.settings.text }}
+          </p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- Bottom Disclaimer Note -->
+    <div style="margin-top: 2.5rem; text-align: center;">
+      <p class="font-body-sm" style="color: var(--color-text-muted); font-style: italic; max-width: 720px; margin: 0 auto;">
+        {{ section.settings.footer_note | default: 'Curated finishes, clear specifications, and transparent regional fulfillment details.' }}
+      </p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust & Confidence",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Honest Standards"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Built with Structural Authenticity"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Curated finishes, clear specifications, and transparent regional fulfillment details."
+    },
+    {
+      "type": "text",
+      "id": "footer_note",
+      "label": "Footer Note",
+      "default": "Curated finishes, clear specifications, and transparent regional fulfillment details."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_pillar",
+      "name": "Trust Pillar",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "architecture", "label": "Architecture / Materials" },
+            { "value": "handyman", "label": "Handyman / Assembly" },
+            { "value": "shipping", "label": "Shipping / Logistics" },
+            { "value": "shield", "label": "Shield / Protection" }
+          ],
+          "default": "architecture"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Pillar Title",
+          "default": "Material & Craft Standards"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Pillar Description",
+          "default": "Carefully selected materials including solid honed stone, cast metals, and precision architectural mouldings."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust & Confidence",
+      "blocks": [
+        {
+          "type": "trust_pillar",
+          "settings": {
+            "icon": "architecture",
+            "title": "Material & Craft Standards",
+            "text": "Carefully selected materials including solid honed stone, cast metals, and precision architectural mouldings."
+          }
+        },
+        {
+          "type": "trust_pillar",
+          "settings": {
+            "icon": "handyman",
+            "title": "Assembly & Installation",
+            "text": "Clear step-by-step guidance provided for straightforward, tool-light setup."
+          }
+        },
+        {
+          "type": "trust_pillar",
+          "settings": {
+            "icon": "shipping",
+            "title": "Fulfillment & Shipping",
+            "text": "Regional fulfillment across US, UK, and EU markets. Standard rates and delivery timelines provided at checkout."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

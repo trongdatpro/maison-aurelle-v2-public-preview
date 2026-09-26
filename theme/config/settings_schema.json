@@ -1,0 +1,54 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Maison Aurelle V2",
+    "theme_version": "2.0.0",
+    "theme_author": "Maison Aurelle",
+    "theme_documentation_url": "https://maisonaurelle.com",
+    "theme_support_url": "https://maisonaurelle.com"
+  },
+  {
+    "name": "Brand Identity (Locked)",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Maison Aurelle V2 brand typography (Playfair Display / Plus Jakarta Sans) and architectural color palette are design-locked to maintain high-luxury standards."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Brand Logo / Wordmark"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 100,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "label": "Logo Width (Desktop)",
+        "default": 180
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon Image"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest URL"
+      }
+    ]
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "share": "Share",
+    "search": {
+      "search": "Search",
+      "placeholder": "Search our curation...",
+      "submit": "Submit"
+    },
+    "breadcrumbs": {
+      "home": "Home"
+    }
+  },
+  "sections": {
+    "header": {
+      "cart_count": "Cart ({{ count }})",
+      "account": "Account",
+      "search": "Search",
+      "menu": "Menu"
+    },
+    "announcement": {
+      "default_text": "Curated home furniture & architectural decor • US, UK & EU Markets"
+    },
+    "cart": {
+      "title": "Your Cart",
+      "empty": "Your cart is currently empty.",
+      "continue_shopping": "Continue Curating",
+      "checkout": "Proceed to Checkout",
+      "subtotal": "Subtotal",
+      "taxes_included_shipping_at_checkout": "Taxes and shipping calculated at checkout",
+      "remove": "Remove"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Archived / Sold Out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "in_stock": "In Stock",
+      "taxes_included": "Taxes included.",
+      "shipping_policy_html": "Shipping calculated at checkout.",
+      "reference": "Reference"
+    }
+  }
+}

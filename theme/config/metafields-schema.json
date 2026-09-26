@@ -1,0 +1,110 @@
+{
+  "description": "Maison Aurelle V2 Product Metafield Definitions for Shopify Admin",
+  "metafields": [
+    {
+      "name": "Curatorial Label",
+      "namespace": "custom",
+      "key": "curatorial_label",
+      "type": "single_line_text_field",
+      "description": "Editorial badge or category indicator (e.g. Flagship Collection, Limited Production Run)"
+    },
+    {
+      "name": "Configuration Note",
+      "namespace": "custom",
+      "key": "configuration_note",
+      "type": "single_line_text_field",
+      "description": "Short specification line shown in buy box (e.g. Standard Accent — 45cm Ø × 52cm H)"
+    },
+    {
+      "name": "Dimensions & Scale Profile",
+      "namespace": "custom",
+      "key": "dimensions_profile",
+      "type": "multi_line_text_field",
+      "description": "Detailed dimensional breakdown: form, elevation, mass, balance, and sofa alignment"
+    },
+    {
+      "name": "Materials & Construction",
+      "namespace": "custom",
+      "key": "materials_construction",
+      "type": "multi_line_text_field",
+      "description": "Detailed composition, marble finishing, brass trim, and internal reinforcement"
+    },
+    {
+      "name": "What's Included",
+      "namespace": "custom",
+      "key": "whats_included",
+      "type": "multi_line_text_field",
+      "description": "Inventory list of items arriving inside the transit package"
+    },
+    {
+      "name": "Assembly Guide",
+      "namespace": "custom",
+      "key": "assembly_guide",
+      "type": "multi_line_text_field",
+      "description": "Tool-free instructions and guidance notes for placement"
+    },
+    {
+      "name": "Care & Maintenance",
+      "namespace": "custom",
+      "key": "care_maintenance",
+      "type": "multi_line_text_field",
+      "description": "Preservation protocols: daily microfiber wipe, coaster use, paste wax schedule"
+    },
+    {
+      "name": "Shipping & Returns Information",
+      "namespace": "custom",
+      "key": "shipping_and_returns",
+      "type": "multi_line_text_field",
+      "description": "Verified packaging specifications, carrier coverage, and return eligibility"
+    },
+    {
+      "name": "Complementary Companion Products",
+      "namespace": "custom",
+      "key": "complementary_products",
+      "type": "list.product_reference",
+      "description": "1 to 2 curated companion accents displayed in the PDP assemblage pairing section"
+    },
+    {
+      "name": "Moulding Piece Length (Architectural Decor)",
+      "namespace": "custom",
+      "key": "moulding_piece_length",
+      "type": "single_line_text_field",
+      "description": "Length per piece (e.g. 240 cm / 94.5 in)"
+    },
+    {
+      "name": "Moulding Profile Width",
+      "namespace": "custom",
+      "key": "moulding_width",
+      "type": "single_line_text_field",
+      "description": "Width profile (e.g. 8.5 cm / 3.3 in)"
+    },
+    {
+      "name": "Moulding Depth / Projection",
+      "namespace": "custom",
+      "key": "moulding_depth_projection",
+      "type": "single_line_text_field",
+      "description": "Wall projection depth (e.g. 2.2 cm / 0.86 in)"
+    },
+    {
+      "name": "Moulding Pieces Per Pack",
+      "namespace": "custom",
+      "key": "moulding_pieces_per_pack",
+      "type": "number_integer",
+      "description": "Number of pieces contained in each standard carton"
+    },
+    {
+      "name": "Moulding Coverage",
+      "namespace": "custom",
+      "key": "moulding_coverage",
+      "type": "single_line_text_field",
+      "description": "Linear or surface coverage metric (e.g. 9.6 linear meters / pack)"
+    },
+    {
+      "name": "Moulding Installation Method",
+      "namespace": "custom",
+      "key": "moulding_installation_method",
+      "type": "single_line_text_field",
+      "description": "Installation adhesive or fastener protocol"
+    }
+  ]
+}

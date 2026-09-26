@@ -1,0 +1,145 @@
+{% comment %}
+  Maison Aurelle V2 — Product Specifications Accordion System
+  Driven entirely by Shopify Metafields
+{% endcomment %}
+
+<section class="section-padding" style="background-color: var(--color-canvas); border-top: 1px solid var(--color-border);">
+  <div class="container-boxed" style="max-width: 900px;">
+    <!-- Section Header -->
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <span class="font-label-caps" style="color: var(--color-secondary); letter-spacing: 0.2em; display: block; margin-bottom: 0.25rem;">
+        Craft &amp; Architecture
+      </span>
+      <h2 class="font-headline-lg" style="margin: 0 0 0.5rem 0; color: var(--color-primary);">
+        Detailed Specifications
+      </h2>
+      <p class="font-body-md" style="color: var(--color-text-variant); margin: 0;">
+        All dimensional metrics, provenance logs, and preservation guides.
+      </p>
+    </div>
+
+    <!-- Accordion Stack -->
+    <div class="accordion-wrapper">
+      <!-- 1. Dimensions & Scale Profile -->
+      {%- if product.metafields.custom.dimensions_profile != blank -%}
+        {% render 'accordion-item',
+          id: 'dimensions',
+          title: 'Dimensions & Scale Profile',
+          icon_name: 'architecture',
+          content: product.metafields.custom.dimensions_profile,
+          is_open: true
+        %}
+      {%- endif -%}
+
+      <!-- PU Moulding Specific Dimensions (if present) -->
+      {%- if product.metafields.custom.moulding_piece_length != blank or product.metafields.custom.moulding_pieces_per_pack != blank -%}
+        {%- capture moulding_content -%}
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; padding-top: 0.5rem;">
+            {%- if product.metafields.custom.moulding_piece_length != blank -%}
+              <div style="background-color: var(--color-surface); padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-base);">
+                <span class="font-label-caps" style="color: var(--color-secondary); display: block;">Piece Length</span>
+                <span class="font-body-md" style="color: var(--color-text-primary);">{{ product.metafields.custom.moulding_piece_length }}</span>
+              </div>
+            {%- endif -%}
+            {%- if product.metafields.custom.moulding_width != blank -%}
+              <div style="background-color: var(--color-surface); padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-base);">
+                <span class="font-label-caps" style="color: var(--color-secondary); display: block;">Profile Width</span>
+                <span class="font-body-md" style="color: var(--color-text-primary);">{{ product.metafields.custom.moulding_width }}</span>
+              </div>
+            {%- endif -%}
+            {%- if product.metafields.custom.moulding_depth_projection != blank -%}
+              <div style="background-color: var(--color-surface); padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-base);">
+                <span class="font-label-caps" style="color: var(--color-secondary); display: block;">Depth / Projection</span>
+                <span class="font-body-md" style="color: var(--color-text-primary);">{{ product.metafields.custom.moulding_depth_projection }}</span>
+              </div>
+            {%- endif -%}
+            {%- if product.metafields.custom.moulding_pieces_per_pack != blank -%}
+              <div style="background-color: var(--color-surface); padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-base);">
+                <span class="font-label-caps" style="color: var(--color-secondary); display: block;">Pieces Per Pack</span>
+                <span class="font-body-md" style="color: var(--color-text-primary);">{{ product.metafields.custom.moulding_pieces_per_pack }} pcs</span>
+              </div>
+            {%- endif -%}
+            {%- if product.metafields.custom.moulding_coverage != blank -%}
+              <div style="background-color: var(--color-surface); padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-base);">
+                <span class="font-label-caps" style="color: var(--color-secondary); display: block;">Total Coverage</span>
+                <span class="font-body-md" style="color: var(--color-text-primary);">{{ product.metafields.custom.moulding_coverage }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endcapture -%}
+        {% render 'accordion-item',
+          id: 'moulding_specs',
+          title: 'Architectural Moulding Metrics',
+          icon_name: 'architecture',
+          content: moulding_content,
+          is_open: false
+        %}
+      {%- endif -%}
+
+      <!-- 2. Materials & Construction -->
+      {%- if product.metafields.custom.materials_construction != blank -%}
+        {% render 'accordion-item',
+          id: 'materials',
+          title: 'Materials & Construction',
+          icon_name: 'architecture',
+          content: product.metafields.custom.materials_construction,
+          is_open: false
+        %}
+      {%- endif -%}
+
+      <!-- 3. What's Included & Assembly -->
+      {%- if product.metafields.custom.whats_included != blank or product.metafields.custom.assembly_guide != blank -%}
+        {%- capture assembly_content -%}
+          {%- if product.metafields.custom.whats_included != blank -%}
+            <div style="margin-bottom: 1rem;">
+              <strong style="color: var(--color-text-primary); display: block; margin-bottom: 0.5rem;">Package Contents:</strong>
+              {{ product.metafields.custom.whats_included }}
+            </div>
+          {%- endif -%}
+          {%- if product.metafields.custom.assembly_guide != blank -%}
+            <div>
+              <strong style="color: var(--color-text-primary); display: block; margin-bottom: 0.5rem;">Assembly Guidance:</strong>
+              {{ product.metafields.custom.assembly_guide }}
+            </div>
+          {%- endif -%}
+        {%- endcapture -%}
+        {% render 'accordion-item',
+          id: 'assembly',
+          title: 'What’s Included & Assembly',
+          icon_name: 'handyman',
+          content: assembly_content,
+          is_open: false
+        %}
+      {%- endif -%}
+
+      <!-- 4. Care & Maintenance -->
+      {%- if product.metafields.custom.care_maintenance != blank -%}
+        {% render 'accordion-item',
+          id: 'care',
+          title: 'Care & Maintenance',
+          icon_name: 'shield',
+          content: product.metafields.custom.care_maintenance,
+          is_open: false
+        %}
+      {%- endif -%}
+
+      <!-- 5. Shipping & Returns -->
+      {%- if product.metafields.custom.shipping_and_returns != blank -%}
+        {% render 'accordion-item',
+          id: 'shipping',
+          title: 'Shipping & Returns',
+          icon_name: 'shipping',
+          content: product.metafields.custom.shipping_and_returns,
+          is_open: false
+        %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Specifications",
+  "settings": []
+}
+{% endschema %}

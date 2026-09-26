@@ -1,0 +1,149 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="container-boxed">
+    <div class="footer-grid">
+      <!-- Column 1: Brand & Regional Context -->
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <h3 class="font-headline-sm" style="margin: 0; font-size: 1.25rem;">{{ shop.name | default: 'Maison Aurelle' }}</h3>
+        <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0; max-width: 320px;">
+          {{ section.settings.brand_bio | default: 'French modern classicism and quiet architectural luxury for private havens.' }}
+        </p>
+        <div style="margin-top: 0.75rem;">
+          <p class="font-label-caps" style="color: var(--color-secondary); margin: 0 0 0.25rem 0;">Initial Target Markets</p>
+          <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0;">United States • United Kingdom • European Union</p>
+        </div>
+      </div>
+
+      <!-- Column 2: Client Care Menu -->
+      <div>
+        <h4 class="footer-title">{{ section.settings.menu_1_heading | default: 'Client Care' }}</h4>
+        <ul class="footer-links">
+          {%- for link in linklists[section.settings.menu_1].links -%}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {%- else -%}
+            <li><a href="#">White Glove Delivery</a></li>
+            <li><a href="#">Bespoke Commissions</a></li>
+            <li><a href="#">Condition Reports</a></li>
+            <li><a href="#">Returns &amp; Preservation</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <!-- Column 3: Materials & Craft Menu -->
+      <div>
+        <h4 class="footer-title">{{ section.settings.menu_2_heading | default: 'Materials & Craft' }}</h4>
+        <ul class="footer-links">
+          {%- for link in linklists[section.settings.menu_2].links -%}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {%- else -%}
+            <li><a href="#">Boiserie &amp; French Walnut</a></li>
+            <li><a href="#">Champagne Gilding</a></li>
+            <li><a href="#">Honed Travertine &amp; Marble</a></li>
+            <li><a href="#">Artisanal Atelier Roster</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <!-- Column 4: Curatorial Dispatch (Newsletter) -->
+      <div>
+        <h4 class="footer-title">{{ section.settings.newsletter_heading | default: 'Curatorial Dispatch' }}</h4>
+        <p class="font-body-sm" style="color: var(--color-text-variant); margin-bottom: 0.75rem;">
+          {{ section.settings.newsletter_subtext | default: 'Privileged invitations to limited salon releases and provenance records.' }}
+        </p>
+
+        {% form 'customer', class: 'footer-newsletter-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div style="display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid var(--color-border-variant);">
+            <input
+              type="email"
+              name="contact[email]"
+              value="{{ form.email }}"
+              class="footer-newsletter-input"
+              placeholder="Your email address"
+              aria-label="Email address for dispatch"
+              required
+            >
+            <button
+              type="submit"
+              class="font-label-ui"
+              style="color: var(--color-text-primary); text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; padding: 0.5rem 0;"
+            >
+              Join
+            </button>
+          </div>
+          {%- if form.posted_successfully? -%}
+            <p class="font-body-sm" style="color: var(--color-tertiary); margin-top: 0.5rem;">Thank you for subscribing to our curatorial dispatch.</p>
+          {%- endif -%}
+        {% endform %}
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0;">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name | default: 'Maison Aurelle' }}. All rights reserved.
+      </p>
+
+      <div style="display: flex; align-items: center; gap: 1.5rem;">
+        {%- if shop.policies.size > 0 -%}
+          {%- for policy in shop.policies -%}
+            <a href="{{ policy.url }}" class="font-body-sm" style="color: var(--color-text-variant);">
+              {{ policy.title }}
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+          <a href="#" class="font-body-sm" style="color: var(--color-text-variant);">Privacy Policy</a>
+          <a href="#" class="font-body-sm" style="color: var(--color-text-variant);">Terms of Service</a>
+          <a href="#" class="font-body-sm" style="color: var(--color-text-variant);">Provenance Authentication</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "brand_bio",
+      "label": "Brand Narrative",
+      "default": "French modern classicism and quiet architectural luxury for private havens."
+    },
+    {
+      "type": "text",
+      "id": "menu_1_heading",
+      "label": "Menu 1 Title",
+      "default": "Client Care"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu 1"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_heading",
+      "label": "Menu 2 Title",
+      "default": "Materials & Craft"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter Title",
+      "default": "Curatorial Dispatch"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_subtext",
+      "label": "Newsletter Subtitle",
+      "default": "Privileged invitations to limited salon releases and provenance records."
+    }
+  ]
+}
+{% endschema %}

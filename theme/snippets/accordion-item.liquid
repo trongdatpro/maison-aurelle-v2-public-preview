@@ -1,0 +1,41 @@
+{% comment %}
+  Renders an accessible specification accordion item
+  Usage:
+  {% render 'accordion-item',
+    id: 'dimensions',
+    title: 'Dimensions & Scale Profile',
+    icon_name: 'architecture',
+    content: product.metafields.custom.dimensions_profile,
+    is_open: true
+  %}
+{% endcomment %}
+
+{%- if content != blank -%}
+  <div class="accordion-item {% if is_open %}is-open{% endif %}" id="accordion-{{ id }}">
+    <button
+      type="button"
+      class="accordion-trigger font-headline-sm"
+      aria-expanded="{% if is_open %}true{% else %}false{% endif %}"
+      aria-controls="content-{{ id }}"
+    >
+      <div class="flex items-center gap-3">
+        {%- if icon_name -%}
+          <span class="text-secondary shrink-0">
+            {% render 'icon', name: icon_name, class: 'w-5 h-5 text-secondary' %}
+          </span>
+        {%- endif -%}
+        <span class="text-on-surface font-headline-sm">{{ title }}</span>
+      </div>
+      <span class="accordion-icon text-on-surface-variant">
+        {% render 'icon', name: 'chevron-down', class: 'w-4 h-4' %}
+      </span>
+    </button>
+    <div
+      class="accordion-content"
+      id="content-{{ id }}"
+      role="region"
+    >
+      {{ content }}
+    </div>
+  </div>
+{%- endif -%}

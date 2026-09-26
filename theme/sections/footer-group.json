@@ -1,0 +1,19 @@
+{
+  "name": "Footer Group",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "brand_bio": "French modern classicism and quiet architectural luxury for private havens.",
+        "menu_1_heading": "Client Care",
+        "menu_2_heading": "Materials & Craft",
+        "newsletter_heading": "Curatorial Dispatch",
+        "newsletter_subtext": "Privileged invitations to limited salon releases and provenance records."
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

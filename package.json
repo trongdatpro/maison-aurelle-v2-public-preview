@@ -1,0 +1,15 @@
+{
+  "name": "maison-aurelle-v2-public-preview",
+  "version": "1.0.0",
+  "description": "Maison Aurelle V2 isolated public visual preview server for Render",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "liquidjs": "^10.29.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

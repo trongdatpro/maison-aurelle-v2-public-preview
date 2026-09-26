@@ -1,0 +1,72 @@
+{% comment %}
+  Renders a product card for collection grids and featured selection
+  Usage: {% render 'product-card', product_card_product: product %}
+{% endcomment %}
+
+{%- if product_card_product and product_card_product != empty -%}
+  <article class="product-card group">
+    <a href="{{ product_card_product.url }}" class="product-card-media block">
+      {%- if product_card_product.featured_media -%}
+        <img
+          src="{{ product_card_product.featured_media | image_url: width: 800 }}"
+          alt="{{ product_card_product.featured_media.alt | escape }}"
+          loading="lazy"
+          width="800"
+          height="800"
+        >
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-surface-container' }}
+      {%- endif -%}
+    </a>
+
+    <div class="product-card-content">
+      <div>
+        <h3 class="product-card-title">
+          <a href="{{ product_card_product.url }}">
+            {{ product_card_product.title | escape }}
+          </a>
+        </h3>
+        
+        <p class="product-card-meta">
+          {%- if product_card_product.metafields.custom.configuration_note != blank -%}
+            {{ product_card_product.metafields.custom.configuration_note | escape }}
+          {%- elsif product_card_product.type != blank -%}
+            {{ product_card_product.type | escape }}
+          {%- else -%}
+            {{ product_card_product.vendor | escape }}
+          {%- endif -%}
+        </p>
+      </div>
+
+      <div class="product-card-footer">
+        <div class="product-card-price">
+          {% render 'price', product: product_card_product %}
+        </div>
+        <span class="product-card-badge">
+          {%- if product_card_product.available -%}
+            {{ 'products.product.in_stock' | t | default: 'In Stock' }}
+          {%- else -%}
+            {{ 'products.product.sold_out' | t | default: 'Archived' }}
+          {%- endif -%}
+        </span>
+      </div>
+    </div>
+  </article>
+{%- else -%}
+  {%- comment -%} Onboarding empty state when no product is assigned yet {%- endcomment -%}
+  <article class="product-card group">
+    <div class="product-card-media">
+      {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-surface-container' }}
+    </div>
+    <div class="product-card-content">
+      <div>
+        <h3 class="product-card-title">Curated Selection Piece</h3>
+        <p class="product-card-meta">Maison Aurelle Atelier</p>
+      </div>
+      <div class="product-card-footer">
+        <div class="product-card-price">$165</div>
+        <span class="product-card-badge">In Stock</span>
+      </div>
+    </div>
+  </article>
+{%- endif -%}

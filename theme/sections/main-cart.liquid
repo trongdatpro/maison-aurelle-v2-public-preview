@@ -1,0 +1,147 @@
+{% comment %}
+  Maison Aurelle V2 — Simple, Friction-Free Cart
+  Required: thumbnail, product name, variant, quantity, price, subtotal, checkout action
+{% endcomment %}
+
+<section class="section-padding" style="background-color: var(--color-canvas); min-height: 70vh;">
+  <div class="container-boxed" style="max-width: 900px;">
+    <!-- Cart Header -->
+    <div style="border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; margin-bottom: 2rem;">
+      <h1 class="font-headline-lg" style="margin: 0; color: var(--color-primary);">
+        {{ 'sections.cart.title' | t | default: 'Your Selection' }}
+      </h1>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" id="cart-form">
+        <!-- Cart Items Table / List -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem;">
+          {%- for item in cart.items -%}
+            <div style="display: grid; grid-template-columns: 80px 1fr auto; gap: 1.25rem; align-items: center; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border);">
+              <!-- 1. Thumbnail -->
+              <div style="width: 80px; height: 80px; background-color: var(--color-surface-container); border-radius: var(--radius-base); overflow: hidden; border: 1px solid var(--color-border);">
+                {%- if item.image -%}
+                  <img
+                    src="{{ item.image | image_url: width: 160 }}"
+                    alt="{{ item.title | escape }}"
+                    loading="lazy"
+                    width="80"
+                    height="80"
+                    style="width: 100%; height: 100%; object-fit: cover;"
+                  >
+                {%- endif -%}
+              </div>
+
+              <!-- 2. Product Name & Variant -->
+              <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                <h2 class="font-headline-sm" style="font-size: 1.125rem; margin: 0;">
+                  <a href="{{ item.url }}" style="color: var(--color-primary);">
+                    {{ item.product.title | escape }}
+                  </a>
+                </h2>
+
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0;">
+                    {{ item.variant.title | escape }}
+                  </p>
+                {%- endunless -%}
+
+                <!-- Price per unit -->
+                <p class="font-body-sm" style="color: var(--color-text-muted); margin: 0;">
+                  {{ item.price | money }} each
+                </p>
+
+                <!-- Remove item link -->
+                <div>
+                  <a
+                    href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0"
+                    class="font-label-ui"
+                    style="color: var(--color-text-muted); text-decoration: underline; font-size: 11px; text-transform: uppercase;"
+                  >
+                    {{ 'sections.cart.remove' | t | default: 'Remove' }}
+                  </a>
+                </div>
+              </div>
+
+              <!-- 3. Quantity & Line Subtotal -->
+              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem;">
+                <!-- Quantity Input -->
+                <div class="qty-stepper" style="height: 38px;">
+                  <input
+                    type="number"
+                    name="updates[]"
+                    id="updates_{{ item.key }}"
+                    value="{{ item.quantity }}"
+                    min="0"
+                    class="qty-input"
+                    aria-label="Quantity for {{ item.title | escape }}"
+                    style="width: 2.5rem;"
+                  >
+                </div>
+
+                <!-- Line Subtotal -->
+                <span class="font-headline-sm" style="font-size: 1.125rem; color: var(--color-primary); font-weight: 500;">
+                  {{ item.final_line_price | money }}
+                </span>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- Subtotal & Checkout Action -->
+        <div style="background-color: var(--color-surface-container-low); border: 1px solid var(--color-border); border-radius: var(--radius-base); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; max-width: 480px; margin-left: auto;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span class="font-headline-sm" style="font-size: 1.125rem; color: var(--color-primary);">Subtotal</span>
+            <span class="font-headline-md" style="font-size: 1.5rem; color: var(--color-primary); font-weight: 500;">
+              {{ cart.total_price | money }}
+            </span>
+          </div>
+
+          <p class="font-body-sm" style="color: var(--color-text-variant); margin: 0;">
+            {{ 'sections.cart.taxes_included_shipping_at_checkout' | t | default: 'Taxes and shipping calculated at checkout' }}
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; padding-top: 0.5rem;">
+            <button
+              type="submit"
+              name="update"
+              class="btn-secondary"
+              style="height: 44px; font-size: 0.75rem;"
+            >
+              Update Quantities
+            </button>
+
+            <button
+              type="submit"
+              name="checkout"
+              class="btn-primary"
+              style="height: 48px; width: 100%;"
+            >
+              <span>{{ 'sections.cart.checkout' | t | default: 'Proceed to Checkout' }}</span>
+              {% render 'icon', name: 'arrow-forward', class: 'w-4 h-4' %}
+            </button>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div style="text-align: center; padding: 4rem 1rem;">
+        <p class="font-headline-sm" style="color: var(--color-text-primary); margin-bottom: 0.5rem;">
+          {{ 'sections.cart.empty' | t | default: 'Your cart is currently empty.' }}
+        </p>
+        <p class="font-body-sm" style="color: var(--color-text-variant); margin-bottom: 2rem;">
+          Discover our curated collection of French modern classic accents.
+        </p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn-primary">
+          {{ 'sections.cart.continue_shopping' | t | default: 'Continue Curating' }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

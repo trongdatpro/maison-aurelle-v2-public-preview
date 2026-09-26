@@ -1,0 +1,62 @@
+{% comment %}
+  Maison Aurelle V2 — Main Collection Grid
+{% endcomment %}
+
+<section class="section-padding" style="background-color: var(--color-canvas); min-height: 70vh;">
+  <div class="container-boxed">
+    <!-- Collection Header -->
+    <div style="border-bottom: 1px solid var(--color-border); padding-bottom: 2rem; margin-bottom: 3rem;">
+      <p class="font-label-caps" style="color: var(--color-secondary); letter-spacing: 0.2em; margin-bottom: 0.25rem;">
+        Maison Aurelle Curation
+      </p>
+      <h1 class="font-headline-lg" style="margin: 0 0 0.75rem 0; color: var(--color-primary);">
+        {{ collection.title | escape }}
+      </h1>
+      {%- if collection.description != blank -%}
+        <div class="font-body-md" style="color: var(--color-text-variant); max-width: 680px; line-height: 1.6;">
+          {{ collection.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Product Grid -->
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      {%- if collection.products.size > 0 -%}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--gutter-desktop); margin-bottom: 3rem;">
+          {%- for product in collection.products -%}
+            {% render 'product-card', product_card_product: product %}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem;" class="font-label-ui">
+            {{ paginate | default_pagination }}
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <div style="text-align: center; padding: 4rem 1rem;">
+          <p class="font-headline-sm" style="color: var(--color-text-primary); margin-bottom: 0.5rem;">No pieces found in this collection.</p>
+          <p class="font-body-sm" style="color: var(--color-text-variant); margin-bottom: 1.5rem;">New curations are released periodically.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn-primary">Browse All Pieces</a>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main Collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 36,
+      "step": 4,
+      "label": "Products per page",
+      "default": 16
+    }
+  ]
+}
+{% endschema %}
