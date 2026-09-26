@@ -1,14 +1,14 @@
 // Temporary QA Fixtures OUTSIDE production theme source
 // Matches locked Stitch screens 9dcd6121d0fc448784bd01e1a5ec7f28 & 393f90a8b8c5471e9e171b3c9dbf733b
 
-const logoUrl = 'https://lh3.googleusercontent.com/aida/AEtjO1X9y8P7YM6fHnsIF4yEDAqZIOqZX7KuVD6Pp8Q6dzLZnSX4Ciip2YLRRfnTLo4X4Ta9CpCx2fiivybpsaZns0xaAGHxsCcSHHj3K14s79NXnxvQIgNXgQ4Oq4XVA49HS-ezjHaFg2iMUdjxTzPYbjbW5ZiRdYEvAI8Y4lxxB9s5dHSJe7pP1HgHO3v_7kmRVFoxJgTijxWjpgaqrv_y3wJyvA9xWXh8XdSAslnr0KbQ08cguEPKcST9eGM';
+const logoUrl = '/assets/logo.svg';
 
 const product1_images = [
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuBeo8yiAV5cJybd0Ms7KU-Gp0COGIGVrXO5HZ5wR3fEbN1gmSLa6GHDKW9JhdReXmaooV5lkbsI6EbCVnRhuVSyKMxvgZwD2sRtZ8I-fxmwQ36i2VASXbN4vtjIGwuTUMG0WHateqa8lzx2s22XRHLrGlgdlrAjn44wn43DduU8mqEsp_IYv1-AaKKPO7d8J4M7Zb8oL91cR35ZzF9ggfupJlYqFVpdct28RjyLDwhxu8tIYufCBfv_CQ',
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuB-teorAZQlQF7cU2qqeYOIKYHEXg1nNkMYHVqqafrjaQkYDeEZgpea_cyouJvSQBy9h_yYK9w-87xjanPIbJWE41dV0wF2S9o7mhU40WfjL9UyJp2ycyToz3ldcrnpwP99TZh66cwaQCvDqiVDep_TyAAUvkh-N-kAoYqmPmAMAEF5zTowqFcRstUONzEQYZeWOoCDnZb98dl3_GEWy2i0hdVj1TdipvjE3_0DS2rFBEupr8U20QMNg',
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuCLCq3uf8nWSYiVC3woZupLNIASBNdBHBV1Ywg-oD7uqmje3pjvfxEm-MJIHxPXWgRbyyxgbPbjyu4ej8D0qIE2Un3x5AVY42ObiHUZYDrBsp_nf0Eql9Ppp08opZAEn91P57LUjeyJsLP8nMG0Qi4YnIsGYu74J3FjJRSp_19IDcuowNNSmvpl1FSRDPIuaeX5Uvjraimui9MnDmIbo6Drwwtb-0oXctikHou2v3oCdzXbblVxwLhGVg',
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuB0c1w2cYW-k6_3gQjvoAvcU0CZjAabxH0umTnCYkORKLamITmrk3Rc-opnjDeNqV5OYmEsMNfmEM2ugL-d1dzX-JKduF_hfoZhvFxSUoDpchmx2fs83XMkPImIFpi1ENMwlCqAhUtJOjaXd25yxGFa2mwGKF_fxDn2GLJaz9OEKjwT5-LhIBtjNlAcrpvc0sWgmb4PirYhzKz-MnCrO0NneWolxpC5vT0wxxHKFpaXZz5EvUdlMHQOww',
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuCNSyBpb-kAvIsANIHXSKceX1QCiQTWcC5rH8MzrbBUQsvr-n0w6xyWWDh6LjpSPop879rsukTyRWU64PU2H4TbdChq5USnjWmYZSicdhzLazja4yhKgIogdKAMX3rOkibKTDUjv_uJyfPgwu2B2nLZn7ip7RG4t4fOks6KEjzgZpEYWfTT8eBMGroSQG9a7_d8ts4tltOx7vzSPVjxUg9UtEGsYhezgfeODN2bdJeiRhxcv6UqeIgblQ'
+  '/assets/preview/fluted-pedestal-table-main.jpg',
+  '/assets/preview/fluted-pedestal-table-detail.jpg',
+  '/assets/preview/fluted-pedestal-table-salon.jpg',
+  '/assets/preview/fluted-pedestal-table-macro.jpg',
+  '/assets/preview/fluted-pedestal-table-scale.jpg'
 ];
 
 const product1 = {
@@ -37,9 +37,7 @@ const product1 = {
       price: 16500,
       sku: 'MAR-8820-WH',
       available: true,
-      featured_image: {
-        src: product1_images[0]
-      }
+      featured_image: { src: '/assets/preview/table-variant-carrara.jpg' }
     },
     {
       id: 102,
@@ -47,9 +45,7 @@ const product1 = {
       price: 16500,
       sku: 'MAR-8820-BK',
       available: true,
-      featured_image: {
-        src: product1_images[2]
-      }
+      featured_image: { src: '/assets/preview/fluted-pedestal-table-salon.jpg' }
     },
     {
       id: 103,
@@ -57,9 +53,7 @@ const product1 = {
       price: 16500,
       sku: 'MAR-8820-AM',
       available: true,
-      featured_image: {
-        src: product1_images[3]
-      }
+      featured_image: { src: '/assets/preview/fluted-pedestal-table-main.jpg' }
     }
   ],
   metafields: {
@@ -89,11 +83,11 @@ const product2 = {
   available: true,
   has_only_default_variant: true,
   featured_media: {
-    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD9ttj71kI4_dVihMFhbMsvfFpLeKm9-zpQwl7nS4rRvPEQJPb3BZ9hhY7UuxtRLV0TnCLWRCX30sRfNdyocaV-4r9FOOF2qwYG3kGRotGN8CDnUguZA9n9FR2gMVDkK_WDd6nALCiamNwOkLxTzihaGOWlvx1We_yGlxsfPC7T0JA0Y0wJV54BgSMZyxKB1ALjGcDv3dx3GVEPjGGQaLuhhqwvZhwa5j8OAP7Vq0GE_kQUFXkoQYK9_g',
+    src: '/assets/preview/sculpted-plaster-amphora.jpg',
     alt: 'Atelier Sculpted Plaster Amphora'
   },
   media: [{
-    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD9ttj71kI4_dVihMFhbMsvfFpLeKm9-zpQwl7nS4rRvPEQJPb3BZ9hhY7UuxtRLV0TnCLWRCX30sRfNdyocaV-4r9FOOF2qwYG3kGRotGN8CDnUguZA9n9FR2gMVDkK_WDd6nALCiamNwOkLxTzihaGOWlvx1We_yGlxsfPC7T0JA0Y0wJV54BgSMZyxKB1ALjGcDv3dx3GVEPjGGQaLuhhqwvZhwa5j8OAP7Vq0GE_kQUFXkoQYK9_g',
+    src: '/assets/preview/sculpted-plaster-amphora.jpg',
     alt: 'Atelier Sculpted Plaster Amphora'
   }],
   variants: [
@@ -130,11 +124,11 @@ const product3 = {
   available: true,
   has_only_default_variant: true,
   featured_media: {
-    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDRtuCQbrjrvLOpQLoZ7SOw-VYakw5XsjVKERZMzErdc5nAA-uVdY-ohPnX5e4yrIh9hPjvNUfeUbljNLGds3MjJKe_QF3kr2gjOliqkeevHB1hBmUv9GG1_3S2PogVX0dKX76z4-8nwQNgyX3nDpi9ZREuw8DvYe2R-L0nER1qvwrjYYpDUuQw2HxxZI5_-ci-RTwEf901KD66V8IfsKNzg8wwSmmpRjbDizx51McgNjgwmvhKtRI2Rw',
+    src: '/assets/preview/wall-moulding-kit.jpg',
     alt: 'Versailles Classic Panel Moulding Pack'
   },
   media: [{
-    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDRtuCQbrjrvLOpQLoZ7SOw-VYakw5XsjVKERZMzErdc5nAA-uVdY-ohPnX5e4yrIh9hPjvNUfeUbljNLGds3MjJKe_QF3kr2gjOliqkeevHB1hBmUv9GG1_3S2PogVX0dKX76z4-8nwQNgyX3nDpi9ZREuw8DvYe2R-L0nER1qvwrjYYpDUuQw2HxxZI5_-ci-RTwEf901KD66V8IfsKNzg8wwSmmpRjbDizx51McgNjgwmvhKtRI2Rw',
+    src: '/assets/preview/wall-moulding-kit.jpg',
     alt: 'Versailles Classic Panel Moulding Pack'
   }],
   variants: [
@@ -176,11 +170,11 @@ const product4 = {
   available: true,
   has_only_default_variant: true,
   featured_media: {
-    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD9ttj71kI4_dVihMFhbMsvfFpLeKm9-zpQwl7nS4rRvPEQJPb3BZ9hhY7UuxtRLV0TnCLWRCX30sRfNdyocaV-4r9FOOF2qwYG3kGRotGN8CDnUguZA9n9FR2gMVDkK_WDd6nALCiamNwOkLxTzihaGOWlvx1We_yGlxsfPC7T0JA0Y0wJV54BgSMZyxKB1ALjGcDv3dx3GVEPjGGQaLuhhqwvZhwa5j8OAP7Vq0GE_kQUFXkoQYK9_g',
+    src: '/assets/preview/sculpted-plaster-amphora.jpg',
     alt: 'Faubourg Cast Bronze Dish & Pedestal'
   },
   media: [{
-    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD9ttj71kI4_dVihMFhbMsvfFpLeKm9-zpQwl7nS4rRvPEQJPb3BZ9hhY7UuxtRLV0TnCLWRCX30sRfNdyocaV-4r9FOOF2qwYG3kGRotGN8CDnUguZA9n9FR2gMVDkK_WDd6nALCiamNwOkLxTzihaGOWlvx1We_yGlxsfPC7T0JA0Y0wJV54BgSMZyxKB1ALjGcDv3dx3GVEPjGGQaLuhhqwvZhwa5j8OAP7Vq0GE_kQUFXkoQYK9_g',
+    src: '/assets/preview/sculpted-plaster-amphora.jpg',
     alt: 'Faubourg Cast Bronze Dish & Pedestal'
   }],
   variants: [
@@ -263,7 +257,7 @@ const baseContext = {
   settings: {
     logo: logoUrl,
     logo_width: 180,
-    favicon: ''
+    favicon: '/assets/favicon.ico'
   },
   request: {
     locale: { iso_code: 'en' }

@@ -21,7 +21,7 @@
             "title": "Side & Accent Tables",
             "subtitle": "Round fluted marble & brass pedestal accents.",
             "price_note": "From $120",
-            "fallback_image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDi7rxp4F1fOFSNIPrk-yMQPatt8PuNi4Dzr2PQWNgeBIU2qUxkf4YutNQ2hEwz7u-Zvqzzd8E9UxldwHW88ho5PpkN9keEKO972RsoaK9Qxei7cwLQiG-zF2zIfCjpsSWLC53E7BUHWRbUskU7VW5B2Soqft6shhSfDfcG6P3EAoZYcowr6JOJbLFNMTrcmHfsRPKZtPLKyvwaR8WRFpZoAJgP4wlqH4fxEvICtP71_GN_afRqQUC5mg"
+            "fallback_image_url": "/assets/preview/fluted-pedestal-table-main.jpg"
           }
         },
         "cat_2": {
@@ -30,7 +30,7 @@
             "title": "Decorative Objects",
             "subtitle": "Hand-sculpted vessels, cast bronze accents & forms.",
             "price_note": "From $38",
-            "fallback_image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuD9ttj71kI4_dVihMFhbMsvfFpLeKm9-zpQwl7nS4rRvPEQJPb3BZ9hhY7UuxtRLV0TnCLWRCX30sRfNdyocaV-4r9FOOF2qwYG3kGRotGN8CDnUguZA9n9FR2gMVDkK_WDd6nALCiamNwOkLxTzihaGOWlvx1We_yGlxsfPC7T0JA0Y0wJV54BgSMZyxKB1ALjGcDv3dx3GVEPjGGQaLuhhqwvZhwa5j8OAP7Vq0GE_kQUFXkoQYK9_g"
+            "fallback_image_url": "/assets/preview/sculpted-plaster-amphora.jpg"
           }
         },
         "cat_3": {
@@ -39,7 +39,7 @@
             "title": "Architectural Details",
             "subtitle": "Lightweight French Rococo & classic wall mouldings.",
             "price_note": "From $32",
-            "fallback_image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDRtuCQbrjrvLOpQLoZ7SOw-VYakw5XsjVKERZMzErdc5nAA-uVdY-ohPnX5e4yrIh9hPjvNUfeUbljNLGds3MjJKe_QF3kr2gjOliqkeevHB1hBmUv9GG1_3S2PogVX0dKX76z4-8nwQNgyX3nDpi9ZREuw8DvYe2R-L0nER1qvwrjYYpDUuQw2HxxZI5_-ci-RTwEf901KD66V8IfsKNzg8wwSmmpRjbDizx51McgNjgwmvhKtRI2Rw"
+            "fallback_image_url": "/assets/preview/wall-moulding-kit.jpg"
           }
         }
       },
@@ -60,7 +60,8 @@
         "eyebrow": "Curated Inventory",
         "title": "Maison Aurelle Selection",
         "description": "Four essential editions presented without artificial rarity or inflated counts.",
-        "products_to_show": 4
+        "products_to_show": 4,
+        "collection": "all"
       }
     },
     "lifestyle": {

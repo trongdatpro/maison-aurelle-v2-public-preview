@@ -45,7 +45,8 @@ async function renderPage(templateName, specificContext = {}) {
       const rendered = await engine.parseAndRender(secLiquid, {
         ...baseContext,
         ...secScope,
-        collections: baseContext.collections
+        collections: baseContext.collections,
+        collection: collections['all']
       });
       layoutHtml += rendered + '\n';
     }
@@ -133,6 +134,15 @@ const server = http.createServer(async (req, res) => {
   const pathname = url.pathname;
 
   // Health check endpoint for Render
+  // Favicon route
+  if (pathname === '/favicon.ico') {
+    const favPath = path.join(ASSETS_DIR, 'favicon.ico');
+    if (fs.existsSync(favPath)) {
+      res.writeHead(200, { 'Content-Type': 'image/x-icon' });
+      return res.end(fs.readFileSync(favPath));
+    }
+  }
+
   if (pathname === '/health' || pathname === '/healthz') {
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
     return res.end('OK');
@@ -149,6 +159,7 @@ const server = http.createServer(async (req, res) => {
       else if (filename.endsWith('.png')) contentType = 'image/png';
       else if (filename.endsWith('.jpg') || filename.endsWith('.jpeg')) contentType = 'image/jpeg';
       else if (filename.endsWith('.svg')) contentType = 'image/svg+xml';
+      else if (filename.endsWith('.ico')) contentType = 'image/x-icon';
       else if (filename.endsWith('.woff2')) contentType = 'font/woff2';
 
       res.writeHead(200, { 'Content-Type': contentType });
